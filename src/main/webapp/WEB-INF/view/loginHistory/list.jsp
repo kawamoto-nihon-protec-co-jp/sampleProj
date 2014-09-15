@@ -9,7 +9,7 @@
 <html:errors/>
 
 <s:form>
-takashi
+takashi1
 <html:hidden property="offset" />
 <html:hidden property="count" />
 <table border="1">
