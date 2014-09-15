@@ -10,7 +10,7 @@
 <html:errors/>
 
 <s:form>
-一覧表です。
+View Detail
 <html:hidden property="offset" />
 <html:hidden property="count" />
 <table border="1">
