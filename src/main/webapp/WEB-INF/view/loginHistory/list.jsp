@@ -9,7 +9,7 @@
 <html:errors/>
 
 <s:form>
-kawamoto
+kaw
 <html:hidden property="offset" />
 <html:hidden property="count" />
 <table border="1">
