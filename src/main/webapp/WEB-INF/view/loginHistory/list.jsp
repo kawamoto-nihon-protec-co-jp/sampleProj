@@ -10,7 +10,7 @@
 <html:errors/>
 
 <s:form>
-[View Lists]
+[View Lists!]
 <html:hidden property="offset" />
 <html:hidden property="count" />
 <table border="1">
