@@ -64,7 +64,7 @@ public class LoginHistoryAction {
           loginHistoryForm.isPrevPage = "false";
         }
 
-        loginHistoryForm.loginId = "enter here";
+        loginHistoryForm.loginId = "Enter here";
 
         return "list.jsp";
     }
