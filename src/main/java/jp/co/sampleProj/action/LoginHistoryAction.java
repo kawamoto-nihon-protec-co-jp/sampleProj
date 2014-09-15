@@ -1,22 +1,18 @@
 package jp.co.sampleProj.action;
 
-import java.sql.Timestamp;
-
+import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.struts.action.ActionMessages;
-import org.seasar.framework.beans.util.Beans;
-import org.seasar.struts.annotation.ActionForm;
-import org.seasar.struts.annotation.Execute;
-import java.util.List;
+import jp.co.sampleProj.entity.LoginHistory;
+import jp.co.sampleProj.form.LoginHistoryForm;
+import jp.co.sampleProj.service.LoginHistoryService;
 
 import org.seasar.extension.jdbc.JdbcManager;
 import org.seasar.extension.jdbc.where.SimpleWhere;
-
-import jp.co.sampleProj.entity.LoginHistory;
-import jp.co.sampleProj.service.LoginHistoryService;
-import jp.co.sampleProj.form.LoginHistoryForm;
+import org.seasar.framework.beans.util.Beans;
+import org.seasar.struts.annotation.ActionForm;
+import org.seasar.struts.annotation.Execute;
 
 public class LoginHistoryAction {
 
@@ -25,7 +21,7 @@ public class LoginHistoryAction {
     private Integer count;
 
     public List<LoginHistory> loginHistoryItems;
-    
+
     @ActionForm
     @Resource
     protected LoginHistoryForm loginHistoryForm;
@@ -40,7 +36,7 @@ public class LoginHistoryAction {
         SimpleWhere swh = new SimpleWhere()
             .like("loginId", loginHistoryForm.loginId+"%")
         ;
-        
+
         loginHistoryItems = jdbcManager.from(LoginHistory.class).where(swh)
                                   .orderBy("loginId")
                                   .getResultList();
@@ -51,12 +47,12 @@ public class LoginHistoryAction {
         if (Integer.valueOf(loginHistoryForm.totalNumber)%limit != 0)
         	loginHistoryForm.totalPageIndex = String.valueOf(Integer.valueOf(loginHistoryForm.totalPageIndex)+1);
         loginHistoryForm.currentPageIndex = String.valueOf(Integer.valueOf(loginHistoryForm.offset)/limit+1);
-        
+
         loginHistoryItems = jdbcManager.from(LoginHistory.class).where(swh)
                                   .orderBy("loginId")
                                   .limit(limit).offset(Integer.valueOf(loginHistoryForm.offset))
-                                  .getResultList();        
-        
+                                  .getResultList();
+
         if (Long.valueOf(loginHistoryForm.offset) + limit < count) {
           loginHistoryForm.isNextPage = "true";
         } else {
@@ -67,6 +63,8 @@ public class LoginHistoryAction {
         } else {
           loginHistoryForm.isPrevPage = "false";
         }
+
+        loginHistoryForm.loginId = "required";
 
         return "list.jsp";
     }
@@ -104,7 +102,7 @@ public class LoginHistoryAction {
         loginHistoryForm.offset = loffset.toString();
         return index();
     }
-    
+
     @Execute(validator = false)
     public String firsPage() {
         loginHistoryForm.offset = "0";
